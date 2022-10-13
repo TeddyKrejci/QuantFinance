@@ -1,0 +1,37 @@
+\documentclass{article}
+
+\setlength\parindent{0pt}
+
+\title{Assignment 2}
+\date{\vspace{-5ex}}
+
+\usepackage{tikz,pgfplots}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{mathtools}
+\usepackage{calculator}
+\usepackage{a4wide}
+\pgfplotsset{compat=1.12}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+
+\newpage
+\textbf{Exercise 6} 
+
+\textf{part a)}
+
+As a consequence of $X \sim exp(1)$, generating such samples that would yield non zero sets for $X>20$ is very computationally burdensome. In case of the naive Monte Carlo estimation, we sample 10,000 times from the exponential distribution (\textit{i.e.}$m=10000$) with $\lambda=1$ and obtain an estimate as follows:
+\begin{equation}
+\hat{\Theta}_m = \frac{1}{m}\sum_{i=1}^{m}\frac{1}{n}\sum_{j=1}^n h(x_{i,j})
+\end{equation}
+
+Where $h(x_{i,j})=\mathbf{I}_{x_{i,j}>20}$ and the number of draws in each iteration is $n=50000$
+
+In this case, the estimated variance of $\hat{\Theta}_{MC}$ is $4\cdot 10^{-14}$
+
+
+
+\end{document}

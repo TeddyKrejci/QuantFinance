@@ -1,0 +1,10 @@
+name: investment
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # ----PYTHON-------
+  - python
+  - pip
+  - black
+  - blpapi # downlaoding data from bloomberg API

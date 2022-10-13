@@ -1,0 +1,69 @@
+\documentclass{article}
+
+\setlength\parindent{0pt}
+
+\title{Financial Engineering - HA 2}
+\author{Burzler R., Krejci T., Wittmann M., Zaborskikh E.}
+\date{March 17, 2019}
+
+\usepackage{tikz,pgfplots}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{mathtools}
+\usepackage{calculator}
+\usepackage{a4wide}
+\pgfplotsset{compat=1.12}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\maketitle
+
+
+<<>>=
+library(ggplot2)
+lamb_g <- 1/20
+h <- function(x) { 
+  if(x > 20) {
+    a <- 1
+  } else {
+      a <- 0
+      }
+  return(a)
+}
+
+f <- function(x) {
+  return(exp(-x)) 
+}
+
+g <- function(x) {
+  return(lamb_g*exp(-lamb_g*x)) 
+}
+
+fh<-function(x){
+  hx<-sapply(x,h)
+  return(f(x)*hx)
+}
+
+seq<-seq(19.5,30,0.001)
+v1<-c(rep(seq,2))
+v2<-c(fh(seq),g(seq)/10^7)
+v3<-factor(c(rep('f(x)h(x)',length(seq)),rep('g(X)',length(seq))))
+dt<-data.frame(v1)
+dt$v2<-v2
+dt$v3<-v3
+str(dt)
+names(dt)<-c('x','value','functions')
+
+
+ggplot(dt,aes(x=x,y=value,colour=functions))+
+  geom_line()+
+  scale_y_continuous("f(x)h(x)",sec.axis = sec_axis(~ . *10^7, name = "g(x)"))
+          
+
+@
+
+
+
+\end{document}

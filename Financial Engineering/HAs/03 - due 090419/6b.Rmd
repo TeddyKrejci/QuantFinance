@@ -1,0 +1,23 @@
+---
+title: "Untitled"
+author: "Burzler R., Krejci T., Wittmann M., Zaborskikh E."
+date: "April 7, 2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Part b)
+
+Importance sampling is a useful variance reduction technique for the cases of barrier option pricing, where the event of crossing the set knock-out/knock-in price is highly unlikely. Consider an up-and-in option as an example. In such case, if the barrier level is set high above the initial level of an underlying, naive Monte Carlo will result in most of the simulations wasted, as the resulting pay-off will simply be zero.
+
+In similar instances, it is possible to increase efficiency by introducing a drift towards the barrier price level and then correcting for this change by multiplication of our estimator by the corresponding likelihood ratio. By assuming the stock price follows Geometric Brownian Motion, the price increments will be log-normally distributed:
+
+$$ logS_{t}-logS_{t-\Delta} = Z_t \sim N\left(\mu,\sigma^2\Delta\right) $$
+
+With $\mu = \left(r-\frac{\sigma^2}{2}\right)\Delta$.
+
+In our step-wise generation in the manner : $S_{j+1}=S{j}\cdot e^{(\mu+\sigma*\sqrt{\Delta}*Z_j)}$ this would amount to setting $\tilde{\mu}=\mu-b$ (with $b>0$ for down-options and $b<0$ for up-options) and to multiplication of the Monte Carlo Estimator $e^{-rT}(I(\mathbf{S})(\pm K\mp S_M)^+)$  \footnote{with $+K$ for put option and $-K$ for the call option} by the ratio of two joint density functions:
+$$ \hat{\Theta}_{IS}=\frac{f(z_1,..,z_M)}{g(z_1,..,z_M)}\mathbb{E}_g\left[I(\mathbf{S}(\pm K\mp S_M)^+)\right] $$

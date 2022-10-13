@@ -1,0 +1,34 @@
+---
+title: "Untitled"
+author: "Burzler R., Krejci T., Wittman M., Zaborskikh E."
+date: "March 11, 2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE,message=FALSE,warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(pacman)
+pacman::p_load('ggplot2','tidyverse')
+```
+
+
+```{r}
+N<-10000
+uni1<- runif(N,0,1)
+uni2<- runif(N,0,1)
+a<-0.25
+b<-0.75
+
+G<- function(x){
+return(1-exp(-x))  
+}
+
+F<-function(y,a=0.25,b=0.75){
+  transf<-(G(y)-G(a))/(G(b)-G(a))
+  return(transf)
+}
+
+hist(sapply(subset(uni1,0.25<uni1&uni1<0.75),FUN = F))
+
+
+```
